@@ -16,11 +16,47 @@ public class Cinema {
         String[][] tab = new String[nbRow+1][nbSeat+1];
 
         System.out.println("Cinema:");
-        init(tab);
+        init(tab, 0, 0);
+        display(tab);
+
+        System.out.println("Enter a row number: ");
+        int rowNumber = scan.nextInt();
+
+        System.out.println("Enter a seat number in that row:");
+        int seatNumber = scan.nextInt();
+
+        System.out.println();
+        System.out.println("Ticket price: $" + ticketPrice(nbRow, nbSeat, rowNumber, seatNumber));
+        System.out.println();
+        System.out.println("Cinema:");
+        init(tab, rowNumber, seatNumber);
         display(tab);
 
         //System.out.println("Total income: ");
         //System.out.println("$" + profit(nbRow, nbSeat));
+    }
+
+    public static int ticketPrice (int nbRow, int nbSeat, int rowNumber, int seatNumber){
+        int ticketPrice = 0;
+
+        if (nbRow*nbSeat < 60){
+            ticketPrice = 10;
+        } else {
+            if (nbRow % 2 == 0){
+                if (rowNumber <= nbRow/2){
+                    ticketPrice = 10;
+                } else {
+                    ticketPrice = 8;
+                }
+            } else {
+                if (rowNumber <= nbRow/2){
+                    ticketPrice = 10;
+                } else {
+                    ticketPrice = 8;
+                }
+            }
+        }
+        return ticketPrice;
     }
 
     public static int profit(int nbRow, int nbSeat){
@@ -43,7 +79,7 @@ public class Cinema {
         return profit;
     }
 
-    public static void init(String[][] tab){
+    public static void init(String[][] tab, int rowNumber, int seatNumber){
         for (int i = 0; i < tab.length; i++) {
             for (int j = 0; j < tab[i].length; j++) {
                 tab[i][j] = "S";
@@ -56,8 +92,10 @@ public class Cinema {
                 tab[0][j] = Integer.toString(j);
 
             }
-
         }
+
+        tab[rowNumber][seatNumber] = "B";
+
         tab[0][0] = " ";
     }
     public static void display(String[][] room){
@@ -66,8 +104,5 @@ public class Cinema {
                 System.out.print(room[i][j] + " ");
             }System.out.println();
         }
-
-
-
     }
 }
