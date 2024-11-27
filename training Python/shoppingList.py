@@ -1,27 +1,55 @@
-select = 0
-liste = []
+import sys
+
+LISTE = []
 
 
+MENU = """Choisissez parmi les 5 options suivantes :
+1: Ajouter un élément à la liste
+2: Retirer un élément de la liste
+3: Afficher la liste
+4: Vider la liste
+5: Quitter
 
-while not select == 5:
-	print("------------------------")
-	print("Choisissez parmi les 5 options suivantes : ")
-	print("1: Ajouter un élément à la liste")
-	print("2: Retirer un élément de la liste")
-	print("3: Afficher la liste")
-	print("4: Vider la liste")
-	print("5: Quitter")
+Votre choix : """
 
-	select = int(input("Votre choix : "))
+MENU_CHOICES = ["1", "2", "3", "4", "5"]
 
-	if (select == 1):
-		liste.append(input("Entrez le nom d'un élément à ajouter à la liste de courses : "))
-	elif (select == 2):
-		liste.remove(input("Entrez le nom d'un élément à retirer de la liste de courses : "))
-	elif (select == 3):
-		print("Voici le contenu de votre liste : ")
-		for i in range(len(liste)):
-			print(f"{i}. {liste[i]}")
-	elif (select == 4):
-		liste.clear()
+while True:
+	user_choice = ""
+	while user_choice not in MENU_CHOICES:
+		user_choice = input(MENU)
+		if user_choice not in MENU_CHOICES:
+			print("Veuillez choisir une option valide...")
+
+	if user_choice == "1":
+		item = input("Entrez le nom d'un élément à ajouter à la liste de courses : ")
+		LISTE.append(item)
+		print(f"L'élément { item } a bien été ajouté à la liste.")
+
+	elif user_choice == "2":
+		item = input("Entrez le nom d'un élément à retirer de la liste de courses : ")
+		if item in LISTE:
+			LISTE.remove(item)
+			print(f"L'élément { item } a bien été supprimé de la liste.")
+		else:
+			print(f"L'élément { item } n'est pas dans la liste.")
+
+	elif user_choice == "3":
+		if LISTE:
+			print("Voici le contenu de votre liste : ")
+			for i, item in enumerate(LISTE, 1):
+				print(f"{i}. {item}")
+		else:
+			print("Votre liste ne contient aucun élément.")
+
+	elif user_choice == "4":
+		LISTE.clear()
+		print("La liste a été vidée de son contenu.")
+
+	elif user_choice == "5":
+		print("A bientôt !")
+		sys.exit()
+
+	print("-" * 50)
+
 	
